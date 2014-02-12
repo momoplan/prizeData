@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.five22;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class Five22XHC {
 
 	public static final String KEY = "T01013HC_X";
-	private static final String LOTNO = "T01013";
 	
 	private int[] hc = new int[22];
 
@@ -29,8 +27,7 @@ public class Five22XHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public Five22XHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public Five22XHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}

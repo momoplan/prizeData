@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.daletou;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class DaLeTouXHC {
 
 	public static final String KEY = "T01001HC_X";
-	private static final String LOTNO = "T01001";
 	
 	
 	private int[] qian = new int[35];
@@ -59,8 +57,7 @@ public class DaLeTouXHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public DaLeTouXHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public DaLeTouXHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}

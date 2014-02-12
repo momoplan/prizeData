@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.threed;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class ThreeDXHC {
 
 	public static final String KEY = "F47103HC_X";
-	private static final String LOTNO = "F47103";
 	
 	private int[] bai = new int[10];
 	private int[] shi = new int[10];
@@ -42,8 +40,7 @@ public class ThreeDXHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public ThreeDXHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public ThreeDXHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}

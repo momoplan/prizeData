@@ -112,6 +112,7 @@ public class SystemController {
 			prizeInfo.setWinspecialcode(win2);
 			prizeInfo.setCreatedate(new Date());
 			missValueService.onPrize(prizeInfo);
+			hotColdService.refresh(lotno, 100);
 		}catch(Exception e) {
 			rd.setErrorCode(ErrorCode.ERROR.value);
 			logger.info("SystemController err", e);

@@ -50,6 +50,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		StatisticsData data_shishicaidd = statisticsDataService.findLatestOrByBatchcode("T01007", ShiShiCaiDD.KEY, batchcode);
 		StatisticsData data_shishicai2zx = statisticsDataService.findLatestOrByBatchcode("T01007", ShiShiCai2ZX.KEY, batchcode);
 		StatisticsData data_shishicai2zxhz = statisticsDataService.findLatestOrByBatchcode("T01007", ShiShiCai2ZXHZ.KEY, batchcode);
+		StatisticsData data_shishicaiz36 = statisticsDataService.findLatestOrByBatchcode("T01007", ShiShiCaiZ36.KEY, batchcode);
 		
 		ShiShiCai5X shishicai5x = ShiShiCai5X.fromJsonToShiShiCai5X(data_shishicai5x.getValue());
 		ShiShiCai2D shishicai2d = ShiShiCai2D.fromJsonToShiShiCai2D(data_shishicai2d.getValue());
@@ -60,6 +61,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		ShiShiCaiDD shishicaidd = ShiShiCaiDD.fromJsonToShiShiCaiDD(data_shishicaidd.getValue());
 		ShiShiCai2ZX shishicai2zx = ShiShiCai2ZX.fromJsonToShiShiCai2ZX(data_shishicai2zx.getValue());
 		ShiShiCai2ZXHZ shishicai2zxhz = ShiShiCai2ZXHZ.fromJsonToShiShiCai2ZXHZ(data_shishicai2zxhz.getValue());
+		ShiShiCaiZ36 shishicaiz36 = ShiShiCaiZ36.fromJsonToShiShiCaiZ36(data_shishicaiz36.getValue());
 		
 		shishicai5x.onPrize(prizeInfo);
 		shishicai2d.onPrize(prizeInfo);
@@ -70,6 +72,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		shishicaidd.onPrize(prizeInfo);
 		shishicai2zx.onPrize(prizeInfo);
 		shishicai2zxhz.onPrize(prizeInfo);
+		shishicaiz36.onPrize(prizeInfo);
 		
 		
 		StatisticsData data_shishicai5x_1 = new StatisticsData(new StatisticsPK(ShiShiCai5X.KEY, prizeInfo.getLotno(), prizeInfo.getBatchcode()));
@@ -81,6 +84,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		StatisticsData data_shishicaidd_1 = new StatisticsData(new StatisticsPK(ShiShiCaiDD.KEY, prizeInfo.getLotno(), prizeInfo.getBatchcode()));
 		StatisticsData data_shishicai2zx_1 = new StatisticsData(new StatisticsPK(ShiShiCai2ZX.KEY, prizeInfo.getLotno(), prizeInfo.getBatchcode()));
 		StatisticsData data_shishicai2zxhz_1 = new StatisticsData(new StatisticsPK(ShiShiCai2ZXHZ.KEY, prizeInfo.getLotno(), prizeInfo.getBatchcode()));
+		StatisticsData data_shishicaiz36_1 = new StatisticsData(new StatisticsPK(ShiShiCaiZ36.KEY, prizeInfo.getLotno(), prizeInfo.getBatchcode()));
 		
 		data_shishicai5x_1.setValue(shishicai5x.toJson());
 		data_shishicai2d_1.setValue(shishicai2d.toJson());
@@ -91,7 +95,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		data_shishicaidd_1.setValue(shishicaidd.toJson());
 		data_shishicai2zx_1.setValue(shishicai2zx.toJson());
 		data_shishicai2zxhz_1.setValue(shishicai2zxhz.toJson());
-		
+		data_shishicaiz36_1.setValue(shishicaiz36.toJson());
 		
 		data_shishicai5x_1.setValueString(shishicai5x.toString());
 		data_shishicai2d_1.setValueString(shishicai2d.toString());
@@ -102,6 +106,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		data_shishicaidd_1.setValueString(shishicaidd.toString());
 		data_shishicai2zx_1.setValueString(shishicai2zx.toString());
 		data_shishicai2zxhz_1.setValueString(shishicai2zxhz.toString());
+		data_shishicaiz36_1.setValueString(shishicaiz36.toString());
 		
 		statisticsDataService.merge(data_shishicai5x_1);
 		statisticsDataService.merge(data_shishicai2d_1);
@@ -112,6 +117,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		statisticsDataService.merge(data_shishicaidd_1);
 		statisticsDataService.merge(data_shishicai2zx_1);
 		statisticsDataService.merge(data_shishicai2zxhz_1);
+		statisticsDataService.merge(data_shishicaiz36_1);
 		
 		logger.info("onPrize end :"+prizeInfo.getLotno()+ " " + prizeInfo.getBatchcode());
 		try {
@@ -126,6 +132,7 @@ public class ShiShiCai implements LotTypeMissValue{
 			memcachedClient.set(ShiShiCaiDD.KEY+"_"+prizeInfo.getBatchcode(), 129600,data_shishicaidd_1);
 			memcachedClient.set(ShiShiCai2ZX.KEY+"_"+prizeInfo.getBatchcode(), 129600,data_shishicai2zx_1);
 			memcachedClient.set(ShiShiCai2ZXHZ.KEY+"_"+prizeInfo.getBatchcode(), 129600,data_shishicai2zxhz_1);
+			memcachedClient.set(ShiShiCaiZ36.KEY+"_"+prizeInfo.getBatchcode(), 129600,data_shishicaiz36_1);
 			
 			logger.info("onPrize put to cache success:"+prizeInfo.getLotno()+ " " + prizeInfo.getBatchcode());
 		}catch (Exception e) {
@@ -176,6 +183,10 @@ public class ShiShiCai implements LotTypeMissValue{
 			ShiShiCai2ZXHZ ZXHZ2 = new ShiShiCai2ZXHZ().refresh(prizeInfoService,index);
 			sdata.setValue(ZXHZ2.toJson());
 			sdata.setValueString(ZXHZ2.toString());
+		}else if(ShiShiCaiZ36.KEY.equals(key)) {
+			ShiShiCaiZ36 Z36 = new ShiShiCaiZ36().refresh(prizeInfoService,index);
+			sdata.setValue(Z36.toJson());
+			sdata.setValueString(Z36.toString());
 		}
 		statisticsDataService.merge(sdata);
 		logger.info("refresh end:key="+key);
@@ -193,6 +204,7 @@ public class ShiShiCai implements LotTypeMissValue{
 		refresh(ShiShiCaiDD.KEY,batchcode,lotno);
 		refresh(ShiShiCai2ZX.KEY,batchcode,lotno);
 		refresh(ShiShiCai2ZXHZ.KEY,batchcode,lotno);
+		refresh(ShiShiCaiZ36.KEY,batchcode,lotno);
 		
 	}
 

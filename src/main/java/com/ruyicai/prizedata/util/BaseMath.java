@@ -1,6 +1,9 @@
 package com.ruyicai.prizedata.util;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BaseMath {
 
@@ -25,5 +28,16 @@ public class BaseMath {
 				list.add(result);
 			}
 		}
+	}
+	
+	
+	
+	public static Map<String,Integer> plusOne(Map<String,Integer> result) {
+		Set<String> keySet = result.keySet();
+		for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext();) {
+			String key = (String) iterator.next();
+			result.put(key, result.get(key)+1);
+		}
+		return result;
 	}
 }

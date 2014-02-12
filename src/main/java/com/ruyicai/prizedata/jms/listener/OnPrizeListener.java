@@ -36,7 +36,7 @@ public class OnPrizeListener implements MessageListener{
 			prizeInfo.setWinbasecode((String)map.get("wincode"));
 			logger.info(prizeInfo.getLotno()+" "+prizeInfo.getBatchcode()+" "+prizeInfo.getWinbasecode()+" "+prizeInfo.getWinspecialcode());
 			missValueService.onPrize(prizeInfo);
-			hotColdService.refresh((String)map.get("lotno"),10);
+			hotColdService.refresh((String)map.get("lotno"),100);
 			
 			
 			missValueService.latestCacheOnPrize("F47104", "F47104MV_X", 10, 43200);

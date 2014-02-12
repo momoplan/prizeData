@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.shuangseqiu;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class ShuangSeQiuXHC {
 
 	public static final String KEY = "F47104HC_X";
-	private static final String LOTNO = "F47104";
 	private int[] red = new int[33];
 	private int[] blue = new int[16];
 	public int[] getRed() {
@@ -52,8 +50,7 @@ public class ShuangSeQiuXHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public ShuangSeQiuXHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public ShuangSeQiuXHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}

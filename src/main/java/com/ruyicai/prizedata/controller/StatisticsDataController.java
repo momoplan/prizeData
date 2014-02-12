@@ -213,5 +213,37 @@ public class StatisticsDataController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param lotno
+	 * @param key 按照分号分割
+	 * @param batchcode
+	 * @return
+	 */
+	@RequestMapping(value = "/missvalueByKeys", method = RequestMethod.GET)
+	public @ResponseBody
+	ResponseData missvalueByKeys(@RequestParam("lotno") String lotno,
+			@RequestParam("keys") String keys,
+			@RequestParam("batchcode") String batchcode) {
+		logger.info("select missvalueByKeys:keys="+keys+" lotno:"+lotno+" batchcode:"+batchcode);
+		ResponseData rd = new ResponseData();
+		try {
+			Map<String,String> map = new HashMap<String,String>();
+			for(String key:keys.split(";")) {
+				StatisticsData sdata = statisticsDataService.findByLotnoAndBatchcodeAndKeyThroughCache(lotno,batchcode, key);
+				if (sdata != null) {
+					map.put(key, sdata.getValue());
+				}
+			}
+			rd.setErrorCode(ErrorCode.OK.value);
+			rd.setValue(map);
+
+		} catch (Exception e) {
+
+			logger.info("StatisticsDataController missvalueByKeys err", e);
+		}
+		return rd;
+	}
+	
 	
 }

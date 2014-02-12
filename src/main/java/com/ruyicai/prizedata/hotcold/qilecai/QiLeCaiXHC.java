@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.qilecai;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class QiLeCaiXHC {
 
 	public static final String KEY = "F47102HC_X";
-	private static final String LOTNO = "F47102";
 	
 	private int[] hc = new int[30];
 
@@ -47,8 +45,7 @@ public class QiLeCaiXHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public QiLeCaiXHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public QiLeCaiXHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}

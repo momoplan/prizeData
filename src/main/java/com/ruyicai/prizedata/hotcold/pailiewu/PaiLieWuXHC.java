@@ -3,7 +3,6 @@ package com.ruyicai.prizedata.hotcold.pailiewu;
 import java.util.List;
 
 import com.ruyicai.prizedata.domain.PrizeInfo;
-import com.ruyicai.prizedata.service.PrizeInfoService;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -11,7 +10,6 @@ import flexjson.JSONSerializer;
 public class PaiLieWuXHC {
 
 	public static final String KEY = "T01011HC_X";
-	private static final String LOTNO = "T01011";
 	
 	private int[] wan = new int[10];
 	private int[] qian = new int[10];
@@ -74,8 +72,7 @@ public class PaiLieWuXHC {
 	 * @param countBatch 指定期数
 	 * @return
 	 */
-	public PaiLieWuXHC refresh(PrizeInfoService prizeInfoService,int countBatch) {
-		List<PrizeInfo> prizeInfos = prizeInfoService.find(LOTNO, 0, countBatch);
+	public PaiLieWuXHC refresh(List<PrizeInfo> prizeInfos,int countBatch) {
 		for(PrizeInfo prizeInfo:prizeInfos) {
 			onPrize(prizeInfo);
 		}
